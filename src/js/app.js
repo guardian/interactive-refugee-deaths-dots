@@ -1,18 +1,13 @@
-import * as d3 from 'd3'
-import * as topojson from 'topojson'
-import world from 'world-atlas/world/110m.json'
+import * as d3sc from 'd3-scale'
+import * as d3se from 'd3-selection'
+
+const d3 = Object.assign({}, d3sc, d3se)
+
 import { $, $$ } from './util'
 
 import palette from './palette'
-
-import rococo from './countries'
-
-import data from '../server/clustered.json'
-
 import PoissonSampler from './poisson-disc-sampler'
 
-import points from '../server/shape.json'
-import { runInDebugContext } from 'vm';
 
 const canvasEl = $('.ref-canvas')
 
@@ -33,12 +28,7 @@ const adjustScale = d3.scaleSqrt()
 	.range([1.4, 1])
 
 const fac = adjustScale(Math.min(600, width))
-
-//console.log('factor:', fac)
-
 const radius = Math.sqrt(1.75*height*width / ( Math.PI*34361*fac ) )
-
-//console.log(width, height, radius)
 
 const canvas = d3.select(canvasEl)
   .attr('width', width*window.devicePixelRatio)
@@ -65,17 +55,6 @@ while((sample = sampler())) {
 
 
 let progress = 0
-
-
-// const yScale = progress => d3.scaleLinear().domain([0, progress]).range([0, 1])
-
-// const shuffle = arr => arr.slice().sort(() => Math.random() - 0.5)
-
-// const shuffled = shuffle(ps)
-
-// const delays = ps.map(([x, y]) => [ x, y, Math.random() ])
-
-
 
 const offsets = mobile ? ['8.5%', '34%', '69%', '83.25%'] : [ '9%', '34%', '69%', '84%' ]
 
@@ -117,8 +96,6 @@ const labelBoxes = labels.map( l => {
 
 })
 
-const circles = [] //[ { x : 800, y : 600, r : 50 } ]
-
 const inBox = (o, bbox, rf) => {
 	return o.x > bbox.left && o.x < (bbox.left + bbox.width) && o.y > (bbox.top + Math.random()*rf) && o.y < (bbox.top + bbox.height - Math.random()*rf)
 }
@@ -134,51 +111,7 @@ const sorted = ps.slice()
 		return true
 	})
 
-	.filter( o => {
-
-		return !circles.some(circle => Math.abs(Math.sqrt( (o.x - circle.x)**2 + ( o.y - circle.y)**2 ) - circle.r) < 5)
-	})
-
 const count = sorted.length
-
-// sorted.forEach( (p, i) => {
-
-// 	const r = 1.2
-// 	ctx.fillStyle = i < count*0.11 ? palette.newsRed : ( i < count*0.89 ? palette.sportBlue : palette.orange )
-	
-// 	ctx.beginPath()
-// 	ctx.arc( p.x, p.y, r, 0, 2*Math.PI )
-// 	ctx.fill()
-// 	ctx.closePath()
-
-// })
-
-// const fullRedraw = progress => {
-
-// 	console.log('full redraw')
-
-// 	ctx.clearRect(0, 0, width, height)
-
-// 	shuffled.forEach( ( [x, y], i ) => {
-
-// 		if(y > progress*height) {
-
-// 			const r = maxR
-// 			ctx.fillStyle = y > height*0.66 ? palette.sportBlue : palette.newsRed
-// 			const alpha = 1 //y/height < progress ? 1 : 0.2
-// 			ctx.globalAlpha = alpha
-// 			ctx.beginPath()
-// 			ctx.arc( x, y, r, 0, 2*Math.PI )
-// 			ctx.fill()
-// 			ctx.closePath()
-
-// 		}
-
-// 	})
-
-// }
-
-
 
 const updateDots = (progress, shouldRedraw) => {
 
@@ -193,32 +126,11 @@ const updateDots = (progress, shouldRedraw) => {
 			const r = radius/4
 			ctx.fillStyle = i < count*0.11 ? palette.guLifestyleHeadline : ( i < count*0.89 ? palette.guSportHeadline : palette.guOpinionHeadline )
 
-			const alpha = 1 //y/height < progress ? 1 : 0.2
-
-			ctx.globalAlpha = alpha
-
 			ctx.beginPath()
 			ctx.arc( p.x, p.y, r, 0, 2*Math.PI )
 			ctx.fill()
 			ctx.closePath()
 		})
-
-		circles.forEach(c => {
-
-			if(c.drawn) { return }
-
-			c.drawn = true
-
-			ctx.beginPath()
-			ctx.lineWidth = 2
-			ctx.globalAlpha = 0.8
-			ctx.strokeStyle = palette.sportBlue
-			ctx.arc(c.x, c.y, c.r, 0, 2*Math.PI)
-			ctx.stroke()
-			ctx.closePath()
-
-		})
-
 }
 
 let i = 0

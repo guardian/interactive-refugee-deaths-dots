@@ -1,0 +1,146 @@
+@import "mq";
+@import "fonts";
+@import "palette";
+// Uncomment for embeds
+@import "embed";
+// Uncomment for full screen (including immersive article main media)
+//@import "fullscreen";
+.element-atom,
+.interactive-atom {
+    margin: 0 !important;
+}
+
+.ref-country {
+    fill: #f6f6f6;
+    stroke: #dcdcdc;
+}
+
+.ref-bubble {
+    stroke: none;
+    fill: #b3b3b4;
+    fill-opacity: 0.3;
+}
+
+.ref-person {
+    fill: $news-red;
+}
+
+.ref-container {
+    position: relative;
+
+    margin-left: 0;
+    // @include mq($from: leftCol) { margin-left: 70px; }
+    // @include mq($from: wide) { margin-left: 150px; }
+
+    width: 100%;
+    max-width: 1300px;
+
+    border-top: 1px solid #dcdcdc;
+    border-bottom: 1px solid #dcdcdc;
+
+    background: white;
+
+}
+
+.ref-canvas {
+    width: 100%;
+}
+
+.ref-copy {
+    position: absolute;
+
+    color: #333;
+
+    @include fs-bodyCopy(3);
+
+    @include mq($from: desktop) {      
+        font-size: 22px;
+        line-height: 32px;
+    }
+
+    font-weight: bold;
+
+    padding: 6px 10px;
+    
+    left: 250px;
+
+    &.ref-copy--right {
+        //left: auto;
+        //right: 420px;
+    }
+
+    @include mq($until: desktop) {
+        left: auto;
+        margin: auto 20px;
+
+        &.ref-copy--right {
+            left: auto;
+            right: auto;
+        }
+    }
+
+    //background: rgba(255, 255, 255, 0.85);
+
+    max-width: 460px;
+
+    opacity: 0;
+
+    transition: opacity .4s linear .2s;
+
+    &.ref-copy--visible {
+        opacity: 1;
+    }
+
+    p {
+        display: inline;
+    }
+
+    @include mq($until: desktop) {
+        p {
+            display: inline-block;
+        }
+    }
+}
+
+.ref-label {
+    position: absolute;
+    @include fs-textSans(3);
+    // font-weight: bold;
+    // font-style: italic;
+
+    opacity: 0;
+
+    transition: opacity .4s linear .2s;
+
+    &.ref-label--visible {
+        opacity: 1;
+    }
+
+    &.ref-label--outside {
+        top: 2%;
+        left: 10px;
+        color: $gu-lifestyle-headline;
+    }
+
+    &.ref-label--sea {
+        top: 17%;
+        left: 10px;
+        color: $gu-sport-headline;
+
+        @include mq($until: desktop) {
+            top: 20%;
+        }
+
+    }
+
+    &.ref-label--inside {
+        bottom: 8%;
+
+        @include mq($until: desktop) {
+            bottom: 4%;
+        }
+
+        left: 10px;
+        color: $gu-opinion-headline;
+    }
+}

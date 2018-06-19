@@ -5,7 +5,7 @@ export async function render() {
     // you can generate this using js, e.g. using Mustache.js
 
     return `
-    
+
     <div class='ref-container'>
         <canvas class='ref-canvas'></canvas>
 
@@ -16,7 +16,7 @@ export async function render() {
         <div class='ref-label ref-label--inside'>died within the EU</div>
 
         <div class='ref-copy ref-copy--hidden'>
-            <p>Not all of the 34,361 deaths occur at sea, but also in detention blocks, asylum units, factories and town centres.</p>
+            <p>Each dot represents one of the 34,361 deaths recorded. Not all of the deaths occur at sea, but also in detention blocks, asylum units, factories and town centres.</p>
         </div>
 
         <div class='ref-copy ref-copy--hidden ref-copy--right'>
@@ -34,4 +34,3 @@ export async function render() {
     </div>`
 
 }
-

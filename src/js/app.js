@@ -23,7 +23,7 @@ const vHeight = window.parent.innerHeight
 window.frameElement.style.width = '100%';
 
 const width = canvasEl.clientWidth || canvasEl.getBoundingClientRect().width
-const height = mobile ? Math.floor(window.innerWidth*1.75*3.5) : 
+const height = mobile ? Math.floor(window.innerWidth*1.75*3.5) :
 	2000 //Math.floor(34604*(radius**2*Math.PI)/(1.96*width))
 
 const padding = 10
@@ -101,7 +101,7 @@ const boxes = pars.map( p => {
 	}
 
 	return bbox
-	
+
 })
 
 const labelBoxes = labels.map( l => {
@@ -130,7 +130,7 @@ const sorted = ps.slice()
 	.filter( o => {
 
 		if(boxes.some( box => inBox(o, box, 4) ) ) { return false }
-		if(labelBoxes.some( box => inBox(o, box, 4) )) { return false } 
+		if(labelBoxes.some( box => inBox(o, box, 4) )) { return false }
 		return true
 	})
 
@@ -145,7 +145,7 @@ const count = sorted.length
 
 // 	const r = 1.2
 // 	ctx.fillStyle = i < count*0.11 ? palette.newsRed : ( i < count*0.89 ? palette.sportBlue : palette.orange )
-	
+
 // 	ctx.beginPath()
 // 	ctx.arc( p.x, p.y, r, 0, 2*Math.PI )
 // 	ctx.fill()
@@ -191,7 +191,7 @@ const updateDots = (progress, shouldRedraw) => {
       		p.drawn = true
 
 			const r = radius/4
-			ctx.fillStyle = i < count*0.11 ? palette.guLifestyleHeadline : ( i < count*0.89 ? palette.guSportHeadline : palette.guOpinionHeadline )
+			ctx.fillStyle = i < count*0.11 ? '#c70000' : ( i < count*0.89 ? '#0084c6' : '#ed6300' )
 
 			const alpha = 1 //y/height < progress ? 1 : 0.2
 

@@ -53,15 +53,15 @@
 
     @include fs-bodyCopy(3);
 
-    @include mq($from: desktop) {      
+    @include mq($from: desktop) {
         font-size: 22px;
         line-height: 32px;
     }
 
-    font-weight: bold;
+
 
     padding: 6px 10px;
-    
+
     left: 250px;
 
     &.ref-copy--right {
@@ -81,7 +81,7 @@
 
     //background: rgba(255, 255, 255, 0.85);
 
-    max-width: 460px;
+    max-width: 640px;
 
     opacity: 0;
 
@@ -118,14 +118,14 @@
 
     &.ref-label--outside {
         top: 2%;
-        left: 10px;
-        color: $gu-lifestyle-headline;
+        right: 20px;
+        color: #c70000;
     }
 
     &.ref-label--sea {
         top: 17%;
-        left: 10px;
-        color: $gu-sport-headline;
+        right: 20px;
+        color: #0084c6;
 
         @include mq($until: desktop) {
             top: 20%;
@@ -140,7 +140,7 @@
             bottom: 4%;
         }
 
-        left: 10px;
-        color: $gu-opinion-headline;
+        right: 20px;
+        color: #ed6300;
     }
 }
